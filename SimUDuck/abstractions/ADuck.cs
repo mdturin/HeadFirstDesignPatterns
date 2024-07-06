@@ -10,4 +10,6 @@ public abstract class ADuck
     public void PerformFly() => FlyBehavior?.Fly();
     public void PerformQuack() => QuackBehavior?.Quack();
     public void Swim() => Console.WriteLine("Swimming");
+    public void SetFlyBehavior(IFlyBehavior fb) => FlyBehavior = fb;
+    public void SetQuackBehavior(IQuackBehavior qb) => QuackBehavior = qb;
 }

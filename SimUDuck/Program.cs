@@ -1,9 +1,13 @@
-﻿namespace SimUDuck;
+﻿using SimUDuck.concrets.ducks;
+
+namespace SimUDuck;
 
 internal class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello, World!");
+        var mallard = new MallardDuck();
+        mallard.PerformQuack();
+        mallard.PerformFly();
     }
 }

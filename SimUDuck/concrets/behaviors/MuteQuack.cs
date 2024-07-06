@@ -6,6 +6,6 @@ public class MuteQuack : IQuackBehavior
 {
     public void Quack()
     {
-        Console.WriteLine("Mute!");
+        Console.WriteLine("<< Silence >>");
     }
 }
