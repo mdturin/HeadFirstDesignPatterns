@@ -1,6 +1,6 @@
-﻿using SimUDuck.interfaces.behaviors;
+﻿using SimUDuck.Interfaces.Behaviors;
 
-namespace SimUDuck.abstractions;
+namespace SimUDuck.Abstractions;
 
 public abstract class ADuck
 {

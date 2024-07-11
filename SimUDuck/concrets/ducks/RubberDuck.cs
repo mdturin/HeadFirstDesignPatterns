@@ -1,7 +1,7 @@
-﻿using SimUDuck.abstractions;
-using SimUDuck.concrets.behaviors;
+﻿using SimUDuck.Abstractions;
+using SimUDuck.Concrets.Behaviors;
 
-namespace SimUDuck.concrets.ducks;
+namespace SimUDuck.Concrets.Ducks;
 
 public class RubberDuck : ADuck
 {

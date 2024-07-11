@@ -1,5 +1,5 @@
-﻿using SimUDuck.concrets.behaviors;
-using SimUDuck.concrets.ducks;
+﻿using SimUDuck.Concrets.Behaviors;
+using SimUDuck.Concrets.Ducks;
 
 namespace SimUDuck;
 

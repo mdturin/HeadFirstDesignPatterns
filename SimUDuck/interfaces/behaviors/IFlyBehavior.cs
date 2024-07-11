@@ -1,4 +1,4 @@
-﻿namespace SimUDuck.interfaces.behaviors;
+﻿namespace SimUDuck.Interfaces.Behaviors;
 
 public interface IFlyBehavior
 {

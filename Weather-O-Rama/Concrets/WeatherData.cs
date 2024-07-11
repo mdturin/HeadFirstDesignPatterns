@@ -1,40 +1,47 @@
-﻿using Weather_O_Rama.Concrets.Displays;
-using Weather_O_Rama.Interfaces;
+﻿using Weather_O_Rama.Interfaces;
 
 namespace Weather_O_Rama.Concrets;
+
+public class WeatherDataArgs: EventArgs
+{
+    public double Temperature { get; set; }
+    public double Humidity { get; set; }
+    public double Pressure { get; set; }
+}
 
 public class WeatherData : ISubject
 {
     private readonly Random _random = new();
-    private readonly ForecastDisplay _forecastDisplay = new();
-    private readonly StatisticsDisplay _statisticsDisplay = new();
-    private readonly CurrentConditionsDisplay _currentConditionsDisplay = new();
+    private readonly WeatherDataArgs _dataArgs = new();
 
-    public double GetTemperature() => _random.NextDouble() * 100;
+    public List<IObserver> Observers { get; set; } = [];
+
     public double GetHumidity() => _random.NextDouble() * 100;
     public double GetPressure() => _random.NextDouble() * 100;
-
-    public WeatherData()
-    {
-
-    }
+    public double GetTemperature() => _random.NextDouble() * 100;
 
     public void MeasurementsChanged()
     {
+        _dataArgs.Humidity = GetHumidity();
+        _dataArgs.Pressure = GetPressure();
+        _dataArgs.Temperature = GetTemperature();
+
+        Notify();
     }
 
     public void Register(IObserver observer)
     {
-        throw new NotImplementedException();
+        Observers.Add(observer);
     }
 
     public void Remove(IObserver observer)
     {
-        throw new NotImplementedException();
+        Observers.Remove(observer);
     }
 
-    public void Notify(IObserver observer)
+    public void Notify()
     {
-        throw new NotImplementedException();
+        foreach (var observer in Observers)
+            observer.Update(this, _dataArgs);
     }
 }

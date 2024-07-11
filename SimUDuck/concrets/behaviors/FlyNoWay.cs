@@ -1,6 +1,6 @@
-﻿using SimUDuck.interfaces.behaviors;
+﻿using SimUDuck.Interfaces.Behaviors;
 
-namespace SimUDuck.concrets.behaviors;
+namespace SimUDuck.Concrets.Behaviors;
 
 public class FlyNoWay : IFlyBehavior
 {
