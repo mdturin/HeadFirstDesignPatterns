@@ -1,9 +1,12 @@
-﻿namespace Weather_O_Rama;
+﻿using Weather_O_Rama.Concrets;
+
+namespace Weather_O_Rama;
 
 public class Program
 {
     public static void Main(string[] args)
     {
-        Console.WriteLine("Hello, World!");
+        var weather = new WeatherData();
+        weather.MeasurementsChanged();
     }
 }

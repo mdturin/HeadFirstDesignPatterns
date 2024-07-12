@@ -2,5 +2,5 @@
 
 public interface IObserver
 {
-    void Update(ISubject subject, IEventArgs args);
+    Task Update(ISubject subject, IEventArgs args);
 }

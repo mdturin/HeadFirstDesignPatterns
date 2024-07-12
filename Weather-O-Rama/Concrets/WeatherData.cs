@@ -35,7 +35,9 @@ public class WeatherData : ISubject
 
     public void Notify()
     {
-        foreach (var observer in Observers)
+        Parallel.ForEach(Observers, (observer) =>
+        {
             observer.Update(this, _dataArgs);
+        });
     }
 }

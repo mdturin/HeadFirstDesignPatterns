@@ -16,7 +16,7 @@ public sealed class CurrentConditionsDisplay : IDisplay, IObserver
         Pressure,
         Temperature);
 
-    public void Update(ISubject subject, IEventArgs args)
+    public Task Update(ISubject subject, IEventArgs args)
     {
         if(args is WeatherDataArgs data)
         {
@@ -24,5 +24,7 @@ public sealed class CurrentConditionsDisplay : IDisplay, IObserver
             Pressure = data.Pressure;
             Temperature = data.Temperature;
         }
+
+        return Task.CompletedTask;
     }
 }
