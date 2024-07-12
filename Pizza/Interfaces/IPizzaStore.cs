@@ -1,10 +1,10 @@
-﻿using PizzaHouse.Enums;
-using PizzaHouse.Models;
+﻿using PizzaHouse.Abstractions;
+using PizzaHouse.Enums;
 
 namespace PizzaHouse.Interfaces;
 
 public interface IPizzaStore
 {
-    Pizza OrderPizza(PizzaType type);
-    Pizza CreatePizza(PizzaType type);
+    APizza OrderPizza(PizzaType type);
+    APizza CreatePizza(PizzaType type);
 }

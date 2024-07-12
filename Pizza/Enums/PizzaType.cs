@@ -3,7 +3,5 @@
 public enum PizzaType : short
 {
     NYStyleCheesePizza,
-    NYStylePepperoniPizza,
-    ChicagoStyleCheesePizza,
-    ChicagoStylePepperoniPizza
+    ChicagoStyleCheesePizza
 }
