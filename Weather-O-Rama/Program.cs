@@ -1,4 +1,5 @@
 ﻿using Weather_O_Rama.Concrets;
+using Weather_O_Rama.Concrets.Displays;
 
 namespace Weather_O_Rama;
 
@@ -8,5 +9,11 @@ public class Program
     {
         var weather = new WeatherData();
         weather.MeasurementsChanged();
+
+        var conditionsDisplay = new CurrentConditionsDisplay();
+        weather.Register(conditionsDisplay);
+        weather.MeasurementsChanged();
+
+        Console.ReadLine();
     }
 }

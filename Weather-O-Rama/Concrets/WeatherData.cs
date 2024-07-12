@@ -20,6 +20,9 @@ public class WeatherData : ISubject
         _dataArgs.Pressure = GetPressure();
         _dataArgs.Temperature = GetTemperature();
 
+        Console.WriteLine(
+            $"{nameof(WeatherData)}: Measurements changed!!!");
+
         Notify();
     }
 
