@@ -12,6 +12,6 @@ public class Mocha : ACondimentDecorator
 
     public override double Cost()
     {
-        return Bevarage.Cost() + 0.20;
+        return Bevarage.Cost() + 0.20 * SizeToCostRatio();
     }
 }
