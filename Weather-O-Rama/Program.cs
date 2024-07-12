@@ -10,16 +10,13 @@ public class Program
         var weather = new WeatherData();
         weather.MeasurementsChanged();
 
-        var conditionsDisplay = new CurrentConditionsDisplay();
-        weather.Register(conditionsDisplay);
+        _ = new CurrentConditionsDisplay(weather);
         weather.MeasurementsChanged();
 
-        var forecastDisplay = new ForecastDisplay();
-        weather.Register(forecastDisplay);
+        _ = new ForecastDisplay(weather);
         weather.MeasurementsChanged();
 
-        var statisticsDisplay = new StatisticsDisplay();
-        weather.Register(statisticsDisplay);
+        _ = new StatisticsDisplay(weather);
         weather.MeasurementsChanged();
 
         Console.ReadLine();
