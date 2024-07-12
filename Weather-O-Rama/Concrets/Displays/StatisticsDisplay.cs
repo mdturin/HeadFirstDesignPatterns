@@ -1,8 +1,9 @@
-﻿using Weather_O_Rama.Interfaces;
+﻿using Weather_O_Rama.EventArgs;
+using Weather_O_Rama.Interfaces;
 
 namespace Weather_O_Rama.Concrets.Displays;
 
-public sealed class StatisticsDisplay : IDisplay
+public sealed class StatisticsDisplay : IDisplay, IObserver
 {
     public double Humidity { get; set; }
     public double Pressure { get; set; }
@@ -15,10 +16,13 @@ public sealed class StatisticsDisplay : IDisplay
         Pressure,
         Temperature);
 
-    public void Update(double temperature, double humidity, double pressure)
+    public void Update(ISubject subject, IEventArgs args)
     {
-        Humidity = humidity;
-        Pressure = pressure;
-        Temperature = temperature;
+        if (args is WeatherDataArgs data)
+        {
+            Humidity = data.Humidity;
+            Pressure = data.Pressure;
+            Temperature = data.Temperature;
+        }
     }
 }

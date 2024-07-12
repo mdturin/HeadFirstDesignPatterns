@@ -1,13 +1,7 @@
-﻿using Weather_O_Rama.Interfaces;
+﻿using Weather_O_Rama.EventArgs;
+using Weather_O_Rama.Interfaces;
 
 namespace Weather_O_Rama.Concrets;
-
-public class WeatherDataArgs: EventArgs
-{
-    public double Temperature { get; set; }
-    public double Humidity { get; set; }
-    public double Pressure { get; set; }
-}
 
 public class WeatherData : ISubject
 {
