@@ -14,6 +14,14 @@ public class Program
         weather.Register(conditionsDisplay);
         weather.MeasurementsChanged();
 
+        var forecastDisplay = new ForecastDisplay();
+        weather.Register(forecastDisplay);
+        weather.MeasurementsChanged();
+
+        var statisticsDisplay = new StatisticsDisplay();
+        weather.Register(statisticsDisplay);
+        weather.MeasurementsChanged();
+
         Console.ReadLine();
     }
 }
