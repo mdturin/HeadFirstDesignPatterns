@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Starbuzz", "Starbuzz\Starbu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaHouse", "Pizza\PizzaHouse.csproj", "{E8233F92-CB3D-45CD-A00B-AD624639D370}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Singleton", "Singleton\Singleton.csproj", "{43D0B5AF-54DB-4D5E-8B0F-D5BA58C30BF5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{E8233F92-CB3D-45CD-A00B-AD624639D370}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8233F92-CB3D-45CD-A00B-AD624639D370}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8233F92-CB3D-45CD-A00B-AD624639D370}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43D0B5AF-54DB-4D5E-8B0F-D5BA58C30BF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43D0B5AF-54DB-4D5E-8B0F-D5BA58C30BF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43D0B5AF-54DB-4D5E-8B0F-D5BA58C30BF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43D0B5AF-54DB-4D5E-8B0F-D5BA58C30BF5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
