@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Singleton", "Singleton\Sing
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeAutomation", "HomeAutomation\HomeAutomation.csproj", "{43356426-1B68-48AD-AAFD-A4B10EC6C5CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurationManagementSystem", "ConfigurationManagementSystem\ConfigurationManagementSystem.csproj", "{3C9E6372-5A08-48B2-A4B7-4186B71E9F15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentGateway", "PaymentGatway\PaymentGateway.csproj", "{E736CA61-10EE-46BC-A693-6C805E3FAACB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +49,14 @@ Global
 		{43356426-1B68-48AD-AAFD-A4B10EC6C5CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43356426-1B68-48AD-AAFD-A4B10EC6C5CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43356426-1B68-48AD-AAFD-A4B10EC6C5CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C9E6372-5A08-48B2-A4B7-4186B71E9F15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C9E6372-5A08-48B2-A4B7-4186B71E9F15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C9E6372-5A08-48B2-A4B7-4186B71E9F15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C9E6372-5A08-48B2-A4B7-4186B71E9F15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E736CA61-10EE-46BC-A693-6C805E3FAACB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E736CA61-10EE-46BC-A693-6C805E3FAACB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E736CA61-10EE-46BC-A693-6C805E3FAACB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E736CA61-10EE-46BC-A693-6C805E3FAACB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
