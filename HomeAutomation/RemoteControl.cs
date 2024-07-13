@@ -28,8 +28,8 @@ public class RemoteControl
             throw new ArgumentOutOfRangeException(
                 $"{slot} is not valid control postion");
 
-        OnCommands[slot] = onCommand;
-        OffCommands[slot] = offCommand;
+        OnCommands[slot - 1] = onCommand;
+        OffCommands[slot - 1] = offCommand;
     }
 
     public void ExecuteOnButton(int slot)
@@ -38,7 +38,7 @@ public class RemoteControl
             throw new ArgumentOutOfRangeException(
                 $"{slot} is not valid control postion");
 
-        OnCommands[slot].Execute();
+        OnCommands[slot - 1].Execute();
     }
 
     public void ExecuteOffButton(int slot)
@@ -47,7 +47,7 @@ public class RemoteControl
             throw new ArgumentOutOfRangeException(
                 $"{slot} is not valid control postion");
 
-        OffCommands[slot].Execute();
+        OffCommands[slot - 1].Execute();
     }
 
     public override string ToString()
@@ -58,7 +58,8 @@ public class RemoteControl
         for (var i = 0; i < OnCommands.Count; ++i)
         {
             sb.Append($"[slot {i + 1}]:\t");
-            sb.Append(OnCommands[i].GetType().Name + "\t\t");
+            sb.Append(string.Format("{0, -25}", 
+                OnCommands[i].GetType().Name));
             sb.AppendLine(OffCommands[i].GetType().Name);
         }
 

@@ -40,3 +40,13 @@ public class StereoOnWithCDCommand(Stereo stereo) : ICommand
         _stereo.SetVolume(10);
     }
 }
+
+public class StereoOffCommand(Stereo stereo) : ICommand
+{
+    private readonly Stereo _stereo = stereo;
+
+    public void Execute()
+    {
+        _stereo.Off();
+    }
+}
