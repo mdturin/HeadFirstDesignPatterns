@@ -25,6 +25,11 @@ public class LightOnCommand(Light light) : ICommand
     {
         _light.On();
     }
+
+    public void Undo()
+    {
+        _light.Off();
+    }
 }
 
 public class LightOffCommand(Light light) : ICommand
@@ -34,5 +39,10 @@ public class LightOffCommand(Light light) : ICommand
     public void Execute()
     {
         _light.Off();
+    }
+
+    public void Undo()
+    {
+        _light.On();
     }
 }

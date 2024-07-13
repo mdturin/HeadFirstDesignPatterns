@@ -6,6 +6,7 @@ namespace HomeAutomation;
 
 public class RemoteControl
 {
+    private ICommand UndoCommand { get; set; }
     private List<ICommand> OnCommands { get; set; } = [];
     private List<ICommand> OffCommands { get; set; } = [];
 
@@ -19,6 +20,8 @@ public class RemoteControl
         OffCommands = Enumerable
             .Repeat(noCommand, slot)
             .ToList();
+
+        UndoCommand = noCommand;
     }
 
     public void SetCommand(
@@ -39,6 +42,7 @@ public class RemoteControl
                 $"{slot} is not valid control postion");
 
         OnCommands[slot - 1].Execute();
+        UndoCommand = OnCommands[slot - 1];
     }
 
     public void ExecuteOffButton(int slot)
@@ -48,7 +52,10 @@ public class RemoteControl
                 $"{slot} is not valid control postion");
 
         OffCommands[slot - 1].Execute();
+        UndoCommand = OffCommands[slot - 1];
     }
+
+    public void Undo() => UndoCommand.Undo();
 
     public override string ToString()
     {
@@ -62,6 +69,9 @@ public class RemoteControl
                 OnCommands[i].GetType().Name));
             sb.AppendLine(OffCommands[i].GetType().Name);
         }
+
+        sb.Append("[Undo] ");
+        sb.AppendLine(UndoCommand.GetType().Name);
 
         return sb.ToString();
     }

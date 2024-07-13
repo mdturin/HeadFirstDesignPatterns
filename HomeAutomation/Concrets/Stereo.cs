@@ -39,6 +39,11 @@ public class StereoOnWithCDCommand(Stereo stereo) : ICommand
         _stereo.SetCD();
         _stereo.SetVolume(10);
     }
+
+    public void Undo()
+    {
+        _stereo.Off();
+    }
 }
 
 public class StereoOffCommand(Stereo stereo) : ICommand
@@ -48,5 +53,12 @@ public class StereoOffCommand(Stereo stereo) : ICommand
     public void Execute()
     {
         _stereo.Off();
+    }
+
+    public void Undo()
+    {
+        _stereo.On();
+        _stereo.SetCD();
+        _stereo.SetVolume(10);
     }
 }

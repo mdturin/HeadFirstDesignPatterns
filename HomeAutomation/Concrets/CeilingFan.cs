@@ -25,6 +25,11 @@ public class CeilingFanOnCommand(CeilingFan fan) : ICommand
     {
         _fan.On();
     }
+
+    public void Undo()
+    {
+        _fan.Off();
+    }
 }
 
 public class CeilingFanOffCommand(CeilingFan fan) : ICommand
@@ -34,5 +39,10 @@ public class CeilingFanOffCommand(CeilingFan fan) : ICommand
     public void Execute()
     {
         _fan.Off();
+    }
+
+    public void Undo()
+    {
+        _fan.On();
     }
 }

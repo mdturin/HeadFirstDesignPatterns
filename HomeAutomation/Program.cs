@@ -37,14 +37,18 @@ internal class Program
 
         control.ExecuteOnButton(1);
         control.ExecuteOffButton(1);
+        control.Undo();
 
         control.ExecuteOnButton(2);
         control.ExecuteOffButton(2);
+        control.Undo();
 
         control.ExecuteOnButton(3);
         control.ExecuteOffButton(3);
+        control.Undo();
 
         control.ExecuteOnButton(4);
         control.ExecuteOffButton(4);
+        control.Undo();
     }
 }

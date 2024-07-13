@@ -25,6 +25,11 @@ public class GarageDoorUpCommand(GarageDoor door) : ICommand
     {
         _door.On();
     }
+
+    public void Undo()
+    {
+        _door.Off();
+    }
 }
 
 public class GarageDoorDownCommand(GarageDoor door) : ICommand
@@ -34,5 +39,10 @@ public class GarageDoorDownCommand(GarageDoor door) : ICommand
     public void Execute()
     {
         _door.Off();
+    }
+
+    public void Undo()
+    {
+        _door.On();
     }
 }
