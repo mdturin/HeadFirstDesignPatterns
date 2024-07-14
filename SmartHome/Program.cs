@@ -1,4 +1,18 @@
-﻿using System;
+﻿/*
+ * 
+    Scenario: The Command Pattern
+    Problem:
+    You are designing a remote control system for a smart home. The remote control can operate 
+    multiple devices such as lights, fans, and air conditioners. Each device can be turned on 
+    and off. You need to implement a system where commands can be executed and also allow for 
+    undoing the last command.
+
+    Questions:
+    Implement the Command pattern to handle the operations of turning devices on and off.
+    How would you implement the undo functionality?
+    How would you extend this system to support new devices without modifying existing code?
+*
+*/
 
 namespace SmartHome;
 
