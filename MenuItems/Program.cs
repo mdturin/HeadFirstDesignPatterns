@@ -57,3 +57,36 @@ public class PancakeHouseMenu
 
     public List<MenuItem> GetMenuItems() => MenuItems;
 }
+
+public class DinerMenu
+{
+    private const int _max_Items = 6;
+    private List<MenuItem> MenuItems { get; set; } = [];
+
+    public DinerMenu()
+    {
+        AddItem("Vegetarian BLT",
+                "(Fakin') Bacon with lettuce & tomato on whole wheat", true, 2.99);
+
+        AddItem("BLT",
+                "Bacon with lettuce & tomato on whole wheat", false, 2.99);
+
+        AddItem("Soup of the day",
+                "Soup of the day, with a side of potato salad", false, 3.29);
+
+        AddItem("Hotdog",
+                "A hot dog, with sauerkraut, relish, onions, topped with cheese",
+                false, 3.05);
+    }
+
+    public void AddItem(
+        string name, string description, bool vegetarian, double price)
+    {
+        if (MenuItems.Count == _max_Items)
+            throw new OutOfMemoryException($"Maximum limit is: {_max_Items}");
+        MenuItems
+            .Add(new MenuItem(name, description, vegetarian, price));
+    }
+
+    public List<MenuItem> GetMenuItems() => MenuItems;
+}
