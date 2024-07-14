@@ -7,19 +7,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimUDuck", "SimUDuck\SimUDu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weather-O-Rama", "Weather-O-Rama\Weather-O-Rama.csproj", "{7564FD83-8030-41D3-8FA5-13CA924C4F9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Starbuzz", "Starbuzz\Starbuzz.csproj", "{E19A196D-5311-4825-BEA7-89506D8B05D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Starbuzz", "Starbuzz\Starbuzz.csproj", "{E19A196D-5311-4825-BEA7-89506D8B05D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaHouse", "Pizza\PizzaHouse.csproj", "{E8233F92-CB3D-45CD-A00B-AD624639D370}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaHouse", "Pizza\PizzaHouse.csproj", "{E8233F92-CB3D-45CD-A00B-AD624639D370}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Singleton", "Singleton\Singleton.csproj", "{43D0B5AF-54DB-4D5E-8B0F-D5BA58C30BF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Singleton", "Singleton\Singleton.csproj", "{43D0B5AF-54DB-4D5E-8B0F-D5BA58C30BF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeAutomation", "HomeAutomation\HomeAutomation.csproj", "{43356426-1B68-48AD-AAFD-A4B10EC6C5CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeAutomation", "HomeAutomation\HomeAutomation.csproj", "{43356426-1B68-48AD-AAFD-A4B10EC6C5CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurationManagementSystem", "ConfigurationManagementSystem\ConfigurationManagementSystem.csproj", "{3C9E6372-5A08-48B2-A4B7-4186B71E9F15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigurationManagementSystem", "ConfigurationManagementSystem\ConfigurationManagementSystem.csproj", "{3C9E6372-5A08-48B2-A4B7-4186B71E9F15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentGateway", "PaymentGatway\PaymentGateway.csproj", "{E736CA61-10EE-46BC-A693-6C805E3FAACB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentGateway", "PaymentGatway\PaymentGateway.csproj", "{E736CA61-10EE-46BC-A693-6C805E3FAACB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationSystem", "NotificationSystem\NotificationSystem.csproj", "{7CB0F8F0-9EA0-4844-9C2E-F5DBF79958A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationSystem", "NotificationSystem\NotificationSystem.csproj", "{7CB0F8F0-9EA0-4844-9C2E-F5DBF79958A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartHome", "SmartHome\SmartHome.csproj", "{579CA344-A6E0-4C66-8A48-06148A59B8F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{7CB0F8F0-9EA0-4844-9C2E-F5DBF79958A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7CB0F8F0-9EA0-4844-9C2E-F5DBF79958A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7CB0F8F0-9EA0-4844-9C2E-F5DBF79958A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{579CA344-A6E0-4C66-8A48-06148A59B8F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{579CA344-A6E0-4C66-8A48-06148A59B8F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{579CA344-A6E0-4C66-8A48-06148A59B8F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{579CA344-A6E0-4C66-8A48-06148A59B8F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
