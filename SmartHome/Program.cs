@@ -16,26 +16,22 @@ internal class Program
         controller.Execute(1);
 
         controller.Execute(2);
+
+        controller.Execute(2);
+
+        controller.Execute(1);
+
+        controller.Execute(0);
+
+        controller.Undo();
     }
 }
-
-public interface IEventArgs { }
-public interface IStateEventArgs : IEventArgs
-{
-    ButtonState State { get; set; }
-}
-
-public abstract class AStateEventArgs(ButtonState state) : IStateEventArgs
-{
-    public ButtonState State { get; set; } = state;
-}
-
-public class CommandArgs(ButtonState state) : AStateEventArgs(state) { }
 
 public interface ICommand
 {
     bool CanExecute();
-    void Execute(object? sender, IEventArgs args);
+    void Execute(object? sender);
+    void Undo();
 }
 
 public enum ButtonState
@@ -44,52 +40,132 @@ public enum ButtonState
     Off
 }
 
-public abstract class AState(ButtonState state = ButtonState.Off)
+public class Light
 {
-    protected ButtonState State { get; set; } = state;
+    protected ButtonState State { get; set; }
+        = ButtonState.Off;
     public void ChangeState(ButtonState state)
         => State = state;
     public ButtonState GetState() => State;
+    public void ToggleState()
+    {
+        if (State == ButtonState.On)
+            ChangeState(ButtonState.Off);
+        else
+            ChangeState(ButtonState.On);
+    }
 }
 
-public class None : AState { }
-
-public class Light : AState { }
-
-public class Fan : AState { }
-
-public class Ac : AState { }
-
-public abstract class ACommand(AState state) : ICommand
+public class Fan
 {
-    private readonly AState _state = state;
+    protected ButtonState State { get; set; }
+        = ButtonState.Off;
+    public void ChangeState(ButtonState state)
+        => State = state;
+    public ButtonState GetState() => State;
+    public void ToggleState()
+    {
+        if (State == ButtonState.On)
+            ChangeState(ButtonState.Off);
+        else
+            ChangeState(ButtonState.On);
+    }
+}
 
+public class Ac
+{
+    protected ButtonState State { get; set; }
+        = ButtonState.Off;
+    public void ChangeState(ButtonState state)
+        => State = state;
+    public ButtonState GetState() => State;
+    public void ToggleState()
+    {
+        if (State == ButtonState.On)
+            ChangeState(ButtonState.Off);
+        else
+            ChangeState(ButtonState.On);
+    }
+}
+
+public abstract class ACommand() : ICommand
+{
     public virtual bool CanExecute() => true;
 
-    public virtual void Execute(object? sender, IEventArgs args)
-    {
-        if (!CanExecute()) return;
-        if (args is AStateEventArgs stateArgs)
-            _state.ChangeState(stateArgs.State);
-    }
+    public abstract void Execute(object? sender);
 
-    public ButtonState GetState() => _state.GetState();
+    public abstract void Undo();
 }
 
-public class LightCommand(AState light) : ACommand(light) { }
-public class FanCommand(AState fan) : ACommand(fan) { }
-public class AcCommand(AState ac) : ACommand(ac) { }
-public class NoCommand(None none) : ACommand(none) 
+public class LightCommand(Light light) : ACommand()
 {
-    public override bool CanExecute() => false;
+    public override void Execute(object? sender)
+    {
+        if (!CanExecute()) return;
+        light.ToggleState();
+        Console.WriteLine("Light State: " + light.GetState().ToString());
+    }
+
+    public override void Undo()
+    {
+        if (!CanExecute()) return;
+        light.ToggleState();
+        Console.WriteLine("Light State: " + light.GetState().ToString());
+    }
+}
+
+public class FanCommand(Fan fan) : ACommand()
+{
+    public override void Execute(object? sender)
+    {
+        if (!CanExecute()) return;
+        fan.ToggleState();
+        Console.WriteLine("Fan State: " + fan.GetState().ToString());
+    }
+
+    public override void Undo()
+    {
+        if (!CanExecute()) return;
+        fan.ToggleState();
+        Console.WriteLine("Fan State: " + fan.GetState().ToString());
+    }
+}
+
+public class AcCommand(Ac ac) : ACommand()
+{
+    public override void Execute(object? sender)
+    {
+        if (!CanExecute()) return;
+        ac.ToggleState();
+        Console.WriteLine("Ac State: " + ac.GetState().ToString());
+    }
+
+    public override void Undo()
+    {
+        if (!CanExecute()) return;
+        ac.ToggleState();
+        Console.WriteLine("Ac State: " + ac.GetState().ToString());
+    }
+}
+
+public class NoCommand() : ACommand()
+{
+    public override void Execute(object? sender)
+    {
+    }
+
+    public override void Undo()
+    {
+    }
 }
 
 public class RemoteController
 {
+    private ICommand UndoCommand { get; set; } = new NoCommand();
     private List<ICommand> Commands { get; set; } = [];
     public RemoteController(int slot)
     {
-        ICommand noCommand = new NoCommand(new None());
+        ICommand noCommand = new NoCommand();
         Commands = Enumerable
             .Repeat(noCommand, slot)
             .ToList();
@@ -98,17 +174,8 @@ public class RemoteController
     public void SetCommand(int slot, ICommand command)
     {
         if (slot >= 0 && slot < Commands.Count)
-            Commands[slot] = command;
-        else
-            throw new ArgumentOutOfRangeException(
-                nameof(slot), slot, "Invalid command index");
-    }
-
-    public void Execute(int slot, IEventArgs eventArgs)
-    {
-        if (slot >= 0 && slot < Commands.Count)
         {
-            Commands[slot].Execute(this, eventArgs);
+            Commands[slot] = command;
         }
         else
         {
@@ -121,13 +188,8 @@ public class RemoteController
     {
         if (slot >= 0 && slot < Commands.Count)
         {
-            if (Commands[slot] is ACommand command)
-            {
-                var state = command.GetState();
-                var toggleState = ToggleState(state);
-                var args = new CommandArgs(toggleState);
-                Execute(slot, args);
-            }
+            Commands[slot].Execute(this);
+            UndoCommand = Commands[slot];
         }
         else
         {
@@ -136,13 +198,5 @@ public class RemoteController
         }
     }
 
-    private static ButtonState ToggleState(ButtonState state)
-    {
-        if (state == ButtonState.On)
-            return ButtonState.Off;
-        if (state == ButtonState.Off)
-            return ButtonState.On;
-        throw new ArgumentOutOfRangeException(
-                nameof(state), state, "Invalid State");
-    }
+    public void Undo() => UndoCommand.Undo();
 }
