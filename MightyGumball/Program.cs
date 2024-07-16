@@ -4,7 +4,15 @@ internal class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello, World!");
+        var machine = new GumballMachine(5);
+        machine.InsertQuarter();
+        machine.TurnCrank();
+
+        machine.InsertQuarter();
+        machine.TurnCrank();
+
+        machine.InsertQuarter();
+        machine.TurnCrank();
     }
 }
 
@@ -13,7 +21,8 @@ public enum GumballState : short
     Sold_Out,
     No_Quater,
     Has_Quarter,
-    Sold
+    Sold,
+    Winner
 }
 
 public interface IState
@@ -46,6 +55,7 @@ public class NoQuarterState(GumballMachine machine) : IState
 
 public class HasQuarterState(GumballMachine machine) : IState
 {
+    private readonly Random _random = new();
     private readonly GumballMachine _machine = machine;
 
     public void Dispense()
@@ -68,6 +78,10 @@ public class HasQuarterState(GumballMachine machine) : IState
     {
         Console.WriteLine("You turned...");
         _machine.SetState(GumballState.Sold);
+        int winner = _random.Next(10);
+        if (winner == 0 && _machine.GetCount() > 1)
+            _machine.SetState(GumballState.Winner);
+        else _machine.SetState(GumballState.Sold);
     }
 }
 
@@ -130,6 +144,50 @@ public class SolidOutState(GumballMachine machine) : IState
     }
 }
 
+public class WinnerState(GumballMachine machine) : IState
+{
+    private readonly GumballMachine _machine = machine;
+
+    public void Dispense()
+    {
+        _machine.ReleaseBall();
+        if (_machine.GetCount() == 0)
+        {
+            _machine.SetState(GumballState.Sold_Out);
+        }
+        else
+        {
+            _machine.ReleaseBall();
+            Console.WriteLine("YOU'RE A WINNER! You got two gumballs for your quarter");
+
+            if(_machine.GetCount() > 0)
+            {
+                _machine.SetState(GumballState.No_Quater);
+            }
+            else
+            {
+                Console.WriteLine("Oops, out of gumballs!");
+                _machine.SetState(GumballState.Sold_Out);
+            }
+        }
+    }
+
+    public void EjectQuarter()
+    {
+        Console.WriteLine("Sorry, you already turned the crank");
+    }
+
+    public void InsertQuarter()
+    {
+        Console.WriteLine("Please wait, we're already giving you a gumball");
+    }
+
+    public void TurnCrank()
+    {
+        Console.WriteLine("Turning twice doesn't get you another gumball!");
+    }
+}
+
 public class GumballMachine
 {
     private int _count = 0;
@@ -143,6 +201,11 @@ public class GumballMachine
         _states.Add(GumballState.Has_Quarter, new HasQuarterState(this));
         _states.Add(GumballState.Sold, new SolidState(this));
         _states.Add(GumballState.Sold_Out, new SolidOutState(this));
+        _states.Add(GumballState.Winner, new WinnerState(this));
+
+        if (_count > 0)
+            State = GumballState.No_Quater;
+        else State = GumballState.Sold_Out;
     }
 
     public void SetState(GumballState state)
