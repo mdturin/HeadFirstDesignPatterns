@@ -4,7 +4,11 @@ internal class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello, World!");
+        var dinerMenu = new DinerMenu();
+        var pancakeMenu = new PancakeHouseMenu();
+        var waitress = new Waitress(dinerMenu, pancakeMenu);
+
+        waitress.PrintMenu();
     }
 }
 
@@ -20,6 +24,71 @@ public class MenuItem(
     public double GetPrice() => Price;
     public bool IsVegetarian() => Vegetarian;
     public string GetDescription() => Description;
+}
+
+public interface IIterator
+{
+    bool HasNext();
+    MenuItem? Next();
+}
+
+public class DinerMenuIterator(MenuItem[] items) : IIterator
+{
+    private int _position = 0;
+    private MenuItem[] Items { get; set; } = items;
+
+    public bool HasNext() 
+        => !(_position >= Items.Length || Items[_position] == null);
+
+    public MenuItem? Next() 
+        => HasNext() ? Items[_position++] : null;
+}
+
+public class DinerMenu
+{
+    private int _numberOfItems = 0;
+    private const int _max_Items = 6;
+    private MenuItem[] MenuItems { get; set; } = [];
+
+    public DinerMenu()
+    {
+        MenuItems = new MenuItem[_max_Items];
+
+        AddItem("Vegetarian BLT",
+                "(Fakin') Bacon with lettuce & tomato on whole wheat", true, 2.99);
+
+        AddItem("BLT",
+                "Bacon with lettuce & tomato on whole wheat", false, 2.99);
+
+        AddItem("Soup of the day",
+                "Soup of the day, with a side of potato salad", false, 3.29);
+
+        AddItem("Hotdog",
+                "A hot dog, with sauerkraut, relish, onions, topped with cheese",
+                false, 3.05);
+    }
+
+    public void AddItem(
+        string name, string description, bool vegetarian, double price)
+    {
+        if (_numberOfItems >= _max_Items)
+            throw new OutOfMemoryException($"Maximum limit is: {_max_Items}");
+        MenuItems[_numberOfItems++] = new MenuItem(name, description, vegetarian, price);
+    }
+
+    public IIterator CreateIterator() => new DinerMenuIterator(MenuItems);
+}
+
+public class PancakeHouseMenuIterator(List<MenuItem> items) : IIterator
+{
+    private int _position = 0;
+    private List<MenuItem> Items { get; set; } = items;
+
+    public bool HasNext()
+        => !(_position >= Items.Count || Items[_position] == null);
+
+    public MenuItem? Next()
+        => HasNext() ? Items[_position++] : null;
 }
 
 public class PancakeHouseMenu
@@ -56,39 +125,35 @@ public class PancakeHouseMenu
     }
 
     public List<MenuItem> GetMenuItems() => MenuItems;
+
+    public IIterator CreateIterator() 
+        => new PancakeHouseMenuIterator(MenuItems);
 }
 
-public class DinerMenu
+public class Waitress(DinerMenu dinerMenu, PancakeHouseMenu pancakeHouseMenu)
 {
-    private int _numberOfItems = 0;
-    private const int _max_Items = 6;
-    private MenuItem[] MenuItems { get; set; } = [];
+    private DinerMenu DinerMenu { get; set; } = dinerMenu;
+    private PancakeHouseMenu PancakeHouseMenu { get; set; } = pancakeHouseMenu;
 
-    public DinerMenu()
+    public void PrintMenu()
     {
-        MenuItems = new MenuItem[_max_Items];
+        var dinerIterator = DinerMenu.CreateIterator();
+        var pancakeIterator = PancakeHouseMenu.CreateIterator();
 
-        AddItem("Vegetarian BLT",
-                "(Fakin') Bacon with lettuce & tomato on whole wheat", true, 2.99);
+        Console.WriteLine("---Breakfast---");
+        PrintMenu(pancakeIterator);
 
-        AddItem("BLT",
-                "Bacon with lettuce & tomato on whole wheat", false, 2.99);
-
-        AddItem("Soup of the day",
-                "Soup of the day, with a side of potato salad", false, 3.29);
-
-        AddItem("Hotdog",
-                "A hot dog, with sauerkraut, relish, onions, topped with cheese",
-                false, 3.05);
+        Console.WriteLine("---Lunch---");
+        PrintMenu(dinerIterator);
     }
 
-    public void AddItem(
-        string name, string description, bool vegetarian, double price)
+    private void PrintMenu(IIterator iterator)
     {
-        if (_numberOfItems >= _max_Items)
-            throw new OutOfMemoryException($"Maximum limit is: {_max_Items}");
-        MenuItems[_numberOfItems++] = new MenuItem(name, description, vegetarian, price);
+        while (iterator.HasNext())
+        {
+            var item = iterator.Next();
+            Console.WriteLine(
+                $"{item!.GetName()}, {item.GetPrice()} -> {item.GetDescription()}");
+        }
     }
-
-    public MenuItem[] GetMenuItems() => MenuItems;
 }
