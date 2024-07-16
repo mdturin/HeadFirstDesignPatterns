@@ -8,7 +8,10 @@ internal class Program
     {
         var dinerMenu = new DinerMenu();
         var pancakeMenu = new PancakeHouseMenu();
-        var waitress = new Waitress(dinerMenu, pancakeMenu);
+        var cafeMenu = new CafeMenu();
+
+        var waitress = new Waitress(
+            dinerMenu, pancakeMenu, cafeMenu);
 
         waitress.PrintMenu();
     }
@@ -131,21 +134,67 @@ public class PancakeHouseMenu
         => new PancakeHouseMenuIterator(MenuItems);
 }
 
-public class Waitress(DinerMenu dinerMenu, PancakeHouseMenu pancakeHouseMenu)
+public class CafeMenu
+{
+    private readonly Dictionary<string, MenuItem> _menuItems = [];
+
+    public CafeMenu()
+    {
+        AddItem("Veggie Burger and Air Fries",
+            "Veggie burger on a whole wheat bun, lettuce, tomato, and fries",
+            true, 3.99);
+
+        AddItem("Soup of the day",
+            "A cup of the soup of the day, with a side salad",
+            false, 3.69);
+
+        AddItem("Burrito",
+            "A large burrito, with whole pinto beans, salsa, guacamole",
+            true, 4.29);
+    }
+
+    public void AddItem(
+        string name, string description, bool vegetarian, double price)
+    {
+        MenuItem menuItem = new MenuItem(name, description, vegetarian, price);
+        _menuItems.Add(name, menuItem);
+    }
+
+    public IEnumerator CreateIterator()
+        => new CafeMenuMenuIterator(_menuItems.Values);
+}
+
+public class CafeMenuMenuIterator(IEnumerable<MenuItem> items) : IEnumerator
+{
+    private readonly IEnumerator<MenuItem> _enumerator = items.GetEnumerator();
+
+    public object Current => _enumerator.Current;
+
+    public bool MoveNext() => _enumerator.MoveNext();
+
+    public void Reset() => _enumerator.Reset();
+}
+
+public class Waitress(DinerMenu dinerMenu, PancakeHouseMenu pancakeHouseMenu, CafeMenu cafeMenu)
 {
     private DinerMenu DinerMenu { get; set; } = dinerMenu;
     private PancakeHouseMenu PancakeHouseMenu { get; set; } = pancakeHouseMenu;
+    private CafeMenu CafeMenu { get; set; } = cafeMenu;
 
     public void PrintMenu()
     {
         var dinerIterator = DinerMenu.CreateIterator();
         var pancakeIterator = PancakeHouseMenu.CreateIterator();
+        var cafeIterator = CafeMenu.CreateIterator();
 
         Console.WriteLine("---Breakfast---");
         PrintMenu(pancakeIterator);
 
         Console.WriteLine("---Lunch---");
         PrintMenu(dinerIterator);
+
+        Console.WriteLine("---Dinner---");
+        PrintMenu(cafeIterator);
     }
 
     private void PrintMenu(IEnumerator enumerator)
