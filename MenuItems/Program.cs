@@ -1,4 +1,6 @@
-﻿namespace DinerAndPancake;
+﻿using System.Collections;
+
+namespace DinerAndPancake;
 
 internal class Program
 {
@@ -26,22 +28,18 @@ public class MenuItem(
     public string GetDescription() => Description;
 }
 
-public interface IIterator
+public class DinerMenuIterator(MenuItem[] items) : IEnumerator
 {
-    bool HasNext();
-    MenuItem? Next();
-}
+    private int _position = -1;
 
-public class DinerMenuIterator(MenuItem[] items) : IIterator
-{
-    private int _position = 0;
+    public object Current => Items[_position];
+
     private MenuItem[] Items { get; set; } = items;
 
-    public bool HasNext() 
-        => !(_position >= Items.Length || Items[_position] == null);
+    public bool MoveNext() 
+        => ++_position < Items.Length && Items[_position] != null;
 
-    public MenuItem? Next() 
-        => HasNext() ? Items[_position++] : null;
+    public void Reset() => _position = 0;
 }
 
 public class DinerMenu
@@ -76,19 +74,22 @@ public class DinerMenu
         MenuItems[_numberOfItems++] = new MenuItem(name, description, vegetarian, price);
     }
 
-    public IIterator CreateIterator() => new DinerMenuIterator(MenuItems);
+    public IEnumerator CreateIterator()
+        => new DinerMenuIterator(MenuItems);
 }
 
-public class PancakeHouseMenuIterator(List<MenuItem> items) : IIterator
+public class PancakeHouseMenuIterator(List<MenuItem> items) : IEnumerator
 {
     private int _position = 0;
+
+    public object Current => Items[_position];
+
     private List<MenuItem> Items { get; set; } = items;
 
-    public bool HasNext()
-        => !(_position >= Items.Count || Items[_position] == null);
+    public bool MoveNext()
+        => ++_position < Items.Count && Items[_position] != null;
 
-    public MenuItem? Next()
-        => HasNext() ? Items[_position++] : null;
+    public void Reset() => _position = 0;
 }
 
 public class PancakeHouseMenu
@@ -126,7 +127,7 @@ public class PancakeHouseMenu
 
     public List<MenuItem> GetMenuItems() => MenuItems;
 
-    public IIterator CreateIterator() 
+    public IEnumerator CreateIterator() 
         => new PancakeHouseMenuIterator(MenuItems);
 }
 
@@ -147,11 +148,11 @@ public class Waitress(DinerMenu dinerMenu, PancakeHouseMenu pancakeHouseMenu)
         PrintMenu(dinerIterator);
     }
 
-    private void PrintMenu(IIterator iterator)
+    private void PrintMenu(IEnumerator enumerator)
     {
-        while (iterator.HasNext())
+        while (enumerator.MoveNext())
         {
-            var item = iterator.Next();
+            var item = enumerator.Current as MenuItem;
             Console.WriteLine(
                 $"{item!.GetName()}, {item.GetPrice()} -> {item.GetDescription()}");
         }
